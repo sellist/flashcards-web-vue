@@ -8,11 +8,13 @@ import CardFormView from "./view/CardFormView.vue";
 import CardDisplayView from "./view/CardDisplayView.vue";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
+import DeckChoiceView from "./view/DeckChoiceView.vue";
 
 const routes = [
     { path: '/', component: HomeView },
     {path: '/create', component: CardFormView},
     {path: '/play', component: CardDisplayView},
+    {path: '/choose', component: DeckChoiceView},
     { path: '/about', component: AboutView },
 ]
 

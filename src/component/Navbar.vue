@@ -9,6 +9,7 @@
         <Button @click="$router.push('/about')">About</Button>
         <Button @click="$router.push('/create')">Create Deck</Button>
         <Button @click="$router.push('/play')">Play</Button>
+        <Button @click="$router.push('/choose')">Choose Deck</Button>
     </ul>
 </nav>
 </template>

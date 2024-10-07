@@ -1,6 +1,6 @@
-import Card from "./Card.ts";
+import {Card} from "./Card.ts";
 
-export interface Deck {
+export default interface Deck {
     id: number;
     name: string;
     cards: Card[];
