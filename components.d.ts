@@ -10,8 +10,10 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     DeckForm: typeof import('./src/component/DeckForm.vue')['default']
     DeckPlayer: typeof import('./src/component/DeckPlayer.vue')['default']
+    Dropdown: typeof import('primevue/dropdown')['default']
     Navbar: typeof import('./src/component/Navbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('primevue/select')['default']
   }
 }

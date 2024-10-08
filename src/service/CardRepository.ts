@@ -13,6 +13,4 @@ export default class CardRepository {
         console.log(scaleRequest);
         return [];
     }
-
-
 }
