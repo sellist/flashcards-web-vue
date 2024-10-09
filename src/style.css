@@ -9,6 +9,8 @@
     --accent: #f56565;
     --accent-hover: #e53e3e;
     --accent-active: #c53030;
+    --navbar-height: 3.5rem;
+    --text-size: 16px;
 }
 
 body {

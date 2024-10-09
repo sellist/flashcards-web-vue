@@ -4,6 +4,7 @@ import getCardStore from "../service/StoreService.ts";
 import {onBeforeMount} from "vue";
 import Deck from "../model/Deck.ts";
 import {useRouter} from "vue-router";
+import NavbarEnabledView from "./NavbarEnabledView.vue";
 
 const store = getCardStore();
 const decks: Deck[] = [];
@@ -24,12 +25,12 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <div>
+    <NavbarEnabledView>
         <h1>DeckChoiceView</h1>
         <div v-for="deck in decks" :key="deck.id">
             <Button @click="selectDeck(deck)">{{deck.name}}</Button>
         </div>
-    </div>
+    </NavbarEnabledView>
 </template>
 
 <style scoped>
