@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import getAvailableInfo from "../service/InfoRepository.ts";
 import getCardService from "../service/CardService.ts";
 import {ScaleRequest} from "../model/request/RequestDTO.ts";
+import getCardStore from "../service/StoreService.ts";
 
 const tonicNote = ref("C");
 const accidental = ref("");
@@ -13,6 +14,7 @@ const availableRange = ref(["1", "2", "3", "4", "5", "6", "7", "8"]);
 const availableNotes = ref();
 const availableScales = ref();
 const cardService = getCardService();
+const store = getCardStore();
 
 onMounted(() => {
     let info = getAvailableInfo();
@@ -29,7 +31,7 @@ onMounted(() => {
 function onSubmit() {
     console.log("Submit");
 
-    let scaleRequest: ScaleRequest = {
+    const scaleRequest: ScaleRequest = {
         tonic: tonicNote.value + accidental.value,
         octave: parseInt(range.value),
         scaleType: scale.value
@@ -37,9 +39,11 @@ function onSubmit() {
 
     console.log(scaleRequest);
 
-    cardService.getScalarCards(scaleRequest).then((cards) => {
+    cardService.getScalarDeck(scaleRequest).then((cards) => {
         console.log(cards);
+        store.addDeck(cards);
     });
+
 }
 
 </script>

@@ -11,6 +11,7 @@ const decks: Deck[] = [];
 const router = useRouter();
 
 function selectDeck(deck: Deck) {
+    console.log("Selected deck: " + deck.name);
     store.setSelectedDeck(deck);
     router.push('/play');
 }
@@ -30,6 +31,7 @@ onBeforeMount(() => {
         <div v-for="deck in decks" :key="deck.id">
             <Button @click="selectDeck(deck)">{{deck.name}}</Button>
         </div>
+
     </NavbarEnabledView>
 </template>
 

@@ -1,6 +1,7 @@
 import {Card} from "../model/Card.ts";
 import {NotesNameRequest, ScaleRequest} from "../model/request/RequestDTO.ts";
 
+
 export default class CardRepository {
     public async getCardByString(notesRequest: NotesNameRequest): Promise<Card> {
         // implementation
@@ -12,5 +13,7 @@ export default class CardRepository {
         // implementation
         console.log(scaleRequest);
         return [];
+
+
     }
 }
