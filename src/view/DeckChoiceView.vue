@@ -15,12 +15,9 @@ function selectDeck(deck: Deck) {
     store.setSelectedDeck(deck);
     router.push('/play');
 }
-
-onBeforeMount(() => {
-    for (const deck of store.getDecks()) {
+for (const deck of store.getDecks()) {
         decks.push(deck);
-    }
-});
+}
 
 
 </script>

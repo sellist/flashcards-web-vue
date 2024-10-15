@@ -9,7 +9,7 @@ const playing = ref(false);
 const currentDeck: Deck = ref({});
 const playRandom = ref(false);
 const playInfinite = ref(false);
-const currentCard: Card = ref(0);
+const currentCard: Card = ref({});
 const cardIdx = ref(0);
 
 const randomToggle = () => {playRandom.value = !playRandom.value;}
@@ -27,6 +27,7 @@ onMounted(() => {
         currentDeck.name = currDeck.name;
         currentDeck.cards = currDeck.cards;
         currentDeck.id = currDeck.id;
+        cardIdx.value = 0;
 
         playing.value = true;
     }
@@ -66,7 +67,7 @@ function previousCard() {
         <div v-if="playing">
             <Button @click="nextCard">Next Card</Button>
             <div class="cardDisplay">
-                <h2>{{currentDeck}}</h2>
+                <h2>{{cardIdx}}</h2>
             </div>
             <Button @click="previousCard">Previous Card</Button>
             <ToggleSwitch v-if="store.getSelectedDeck()" v-model="playRandom" @change="randomToggle">Random</ToggleSwitch>

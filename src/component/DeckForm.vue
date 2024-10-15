@@ -25,11 +25,23 @@ onMounted(() => {
         availableScales.value = scales;
     });
 });
+const messageQueue = ref<string[]>([]);
+const successMessage = ref(false);
 
 
 
 function onSubmit() {
     console.log("Submit");
+
+    if (successMessage.value) {
+        console.log("Please wait for the current deck creation to complete.");
+        return;
+    }
+
+    messageQueue.value.push("Deck creation successful");
+    setTimeout(() => {
+        messageQueue.value.shift();
+    }, 3000); // Remove after 3 seconds
 
     const scaleRequest: ScaleRequest = {
         tonic: tonicNote.value + accidental.value,
@@ -42,6 +54,10 @@ function onSubmit() {
     cardService.getScalarDeck(scaleRequest).then((cards) => {
         console.log(cards);
         store.addDeck(cards);
+        successMessage.value = true;
+        setTimeout(() => {
+            successMessage.value = false;
+        }, 3000); // Hide after 3 seconds
     });
 
 }
@@ -57,9 +73,18 @@ function onSubmit() {
             <Select v-model="range" :options="availableRange" placeholder="1"/>
             <Select v-model="scale" :options="availableScales" placeholder="Major"/>
             <Button @click="onSubmit">Submit</Button>
+            <transition name="fade">
+                <div v-if="successMessage" class="success-message">Deck creation successful</div>
+            </transition>
         </form>
     </div>
 </template>
 
 <style scoped>
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 </style>
