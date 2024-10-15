@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import getCardStore from "../service/StoreService.ts";
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import Deck from "../model/Deck.ts";
-import {Card} from "../model/Card.ts";
+import { Card } from "../model/Card.ts";
 
 const store = getCardStore();
 const playing = ref(false);
@@ -11,11 +11,10 @@ const playRandom = ref(false);
 const playInfinite = ref(false);
 const currentCard: Card = ref({});
 const cardIdx = ref(0);
+const cardHistory = ref<number[]>([]);
 
-const randomToggle = () => {playRandom.value = !playRandom.value;}
-const infiniteToggle = () => {playInfinite.value = !playInfinite.value};
-
-
+const randomToggle = () => { playRandom.value = !playRandom.value; }
+const infiniteToggle = () => { playInfinite.value = !playInfinite.value; }
 
 onMounted(() => {
     let currDeck = store.getSelectedDeck();
@@ -28,38 +27,41 @@ onMounted(() => {
         currentDeck.cards = currDeck.cards;
         currentDeck.id = currDeck.id;
         cardIdx.value = 0;
-
+        cardHistory.value = [];
         playing.value = true;
     }
-
 });
 
 function nextCard() {
     console.log("Next card");
-    if (playRandom) {
+    cardHistory.value.push(cardIdx.value);
+    if (cardHistory.value.length > 10) {
+        cardHistory.value.shift();
+    }
+
+    if (playRandom.value) {
         console.log("Random play");
         cardIdx.value = Math.floor(Math.random() * currentDeck.cards.length);
-    } else if (playInfinite) {
+    } else if (playInfinite.value) {
         console.log("Infinite play");
         cardIdx.value = (cardIdx.value + 1) % currentDeck.cards.length;
     } else {
         console.log("Normal play");
-        if (cardIdx.value < currentDeck.cards.length) {
+        if (cardIdx.value < currentDeck.cards.length - 1) {
             cardIdx.value++;
-        }
-        if (cardIdx.value === currentDeck.cards.length) {
+        } else {
             cardIdx.value = 0;
             playing.value = false;
         }
-
     }
 }
 
 function previousCard() {
     console.log("Previous card");
+    if (cardHistory.value.length > 0) {
+        cardIdx.value = cardHistory.value.pop()!;
+    }
 }
-
-
 </script>
 
 <template>
@@ -67,18 +69,17 @@ function previousCard() {
         <div v-if="playing">
             <Button @click="nextCard">Next Card</Button>
             <div class="cardDisplay">
-                <h2>{{cardIdx}}</h2>
+                <h2>{{ cardIdx }}</h2>
             </div>
             <Button @click="previousCard">Previous Card</Button>
-            <ToggleSwitch v-if="store.getSelectedDeck()" v-model="playRandom" @change="randomToggle">Random</ToggleSwitch>
-            <ToggleSwitch v-model="playInfinite" @change="infiniteToggle">Infinite</ToggleSwitch>
+            <ToggleSwitch v-model="playRandom">Random</ToggleSwitch>
+            <ToggleSwitch v-model="playInfinite">Infinite</ToggleSwitch>
         </div>
     </div>
-
 </template>
 
 <style scoped>
-    .container {
-        background-color: blue;
-    }
+.container {
+    background-color: blue;
+}
 </style>
