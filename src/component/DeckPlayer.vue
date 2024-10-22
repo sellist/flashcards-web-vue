@@ -2,19 +2,15 @@
 import getCardStore from "../service/StoreService.ts";
 import { onMounted, ref } from "vue";
 import Deck from "../model/Deck.ts";
-import { Card } from "../model/Card.ts";
 
 const store = getCardStore();
 const playing = ref(false);
-const currentDeck: Deck = ref({});
+const currentDeck: Deck = ref({name: "", cards: [], id: 0});
 const playRandom = ref(false);
 const playInfinite = ref(false);
-const currentCard: Card = ref({});
+const completed = ref(false);
 const cardIdx = ref(0);
 const cardHistory = ref<number[]>([]);
-
-const randomToggle = () => { playRandom.value = !playRandom.value; }
-const infiniteToggle = () => { playInfinite.value = !playInfinite.value; }
 
 onMounted(() => {
     let currDeck = store.getSelectedDeck();
@@ -52,6 +48,7 @@ function nextCard() {
         } else {
             cardIdx.value = 0;
             playing.value = false;
+            completed.value = true;
         }
     }
 }
@@ -66,6 +63,8 @@ function previousCard() {
 
 <template>
     <div class="container">
+        <h3 v-if="!completed && !playing">No deck chosen, choose a deck then play!</h3>
+        <h3 v-if="completed">Deck finished! Choose a new deck</h3>
         <div v-if="playing">
             <Button @click="nextCard">Next Card</Button>
             <div class="cardDisplay">

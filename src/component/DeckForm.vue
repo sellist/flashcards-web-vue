@@ -65,13 +65,13 @@ function onSubmit() {
 </script>
 
 <template>
-    <div>
+    <div class="container">
         <h1>Deck Form</h1>
-        <form>
-            <Select v-model="tonicNote" :options="availableNotes" placeholder="C"/>
-            <Select v-model="accidental" :options="availableAccidentals" placeholder="-"/>
-            <Select v-model="range" :options="availableRange" placeholder="1"/>
-            <Select v-model="scale" :options="availableScales" placeholder="Major"/>
+        <form class="form">
+            <Select class="selection" id="tonicNote" v-model="tonicNote" :options="availableNotes" placeholder="C"/>
+            <Select class="selection" id="accidental" v-model="accidental" :options="availableAccidentals" placeholder="-"/>
+            <Select class="selection" id="range" v-model="range" :options="availableRange" placeholder="1"/>
+            <Select class="selection" id="scale" v-model="scale" :options="availableScales" placeholder="Major"/>
             <Button @click="onSubmit">Submit</Button>
             <transition name="fade">
                 <div v-if="successMessage" class="success-message">Deck creation successful</div>
@@ -80,7 +80,25 @@ function onSubmit() {
     </div>
 </template>
 
-<style scoped>
+<style>
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form > * {
+    margin: 10px;
+
+}
+
 .success-message {
     color: green;
     font-weight: bold;
