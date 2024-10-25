@@ -11,6 +11,10 @@
     --accent-active: #c53030;
     --navbar-height: 3.5rem;
     --text-size: 16px;
+    --minimum-width: 320px;
+    font-family: system-ui, sans-serif;
+    font-weight: normal;
+    transition: all 0.5s;
 }
 
 body {
@@ -19,6 +23,7 @@ body {
     background-color: var(--background);
     color: var(--text);
     box-shadow: var(--shadow);
+    min-width: 320px;
 }
 
 
