@@ -16,17 +16,17 @@ const isNavbarVisible = ref(true);
         <transition name="navbar-slide">
         <nav v-if="isNavbarVisible" class="navbar">
             <ul id="nav-buttons">
-                <Button @click="$router.push('/')" label="Home"  rounded />
-                <Button @click="$router.push('/about')" label="About" rounded />
-                <Button @click="$router.push('/create')" label="Create"  rounded />
-                <Button @click="$router.push('/play')" label="Play Deck" rounded />
-                <Button @click="$router.push('/choose')" label="Choose Deck" rounded />
-                <Button @click="toggleNavbar" label="Toggle Navbar" rounded />
+                <Button class="pi pi-home nav-button" @click="$router.push('/')" label="Home"  raised rounded><v-icon name="fa-home" /></Button>
+                <Button class="nav-button" @click="$router.push('/about')" label="About" rounded />
+                <Button class="nav-button" @click="$router.push('/create')" label="Create"  rounded />
+                <Button class="nav-button" @click="$router.push('/play')" label="Play Deck" rounded />
+                <Button class="nav-button" @click="$router.push('/choose')" label="Choose Deck" rounded />
+                <Button class="nav-button" @click="toggleNavbar" label="Toggle Navbar" rounded />
             </ul>
         </nav>
         </transition>
         <transition name="fade">
-            <Button id="show-nav" v-if="!isNavbarVisible" @click="toggleNavbar" class="show-navbar-button">Show Navbar</Button>
+            <Button rounded id="show-nav" v-if="!isNavbarVisible" @click="toggleNavbar">Show Navbar</Button>
         </transition>
     </div>
     <Transition name="slide">
@@ -37,14 +37,15 @@ const isNavbarVisible = ref(true);
 </template>
 
 <style scoped>
+
+
 * {
     --navbar-anim-length: 0.5s;
-    --navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     --navbar-width: 100vw;
     --navbar-position: relative;
     --navbar-top: 0;
     --navbar-left: 0;
-    --navbar-z-index: 1;
+    --navbar-z-index: 0;
     --button-z-index: 0;
     --button-margin: 0;
     --button-cursor: pointer;
@@ -59,8 +60,34 @@ const isNavbarVisible = ref(true);
     --opacity-leave-to: 0;
 }
 
+#nav-buttons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row;
+    padding: 0 0 0 1rem;
+    margin: 0 0 0 0;
+}
+
+#nav-buttons > button {
+    max-height: var(--navbar-height);
+    margin-top: calc(var(--navbar-height) / 8);
+    margin-bottom: calc(var(--navbar-height) / 8);
+    text-wrap: auto;
+}
+
 .nav-container {
     height: var(--navbar-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#show-nav {
+    max-height: var(--navbar-height);
+    margin-top: calc(var(--navbar-height) / 8);
+    margin-bottom: calc(var(--navbar-height) / 8);
 }
 
 .navbar {
@@ -70,7 +97,6 @@ const isNavbarVisible = ref(true);
     left: var(--navbar-left);
     width: var(--navbar-width);
     z-index: var(--navbar-z-index);
-    box-shadow: var(--navbar-box-shadow);
     background-color: var(--navbar-background);
     padding: 0;
     margin: 0;
@@ -88,6 +114,7 @@ template {
 
 Button {
     margin: 0;
+    padding: 1rem;
     white-space: nowrap;
     text-align: center;
     text-decoration: none;
@@ -95,11 +122,10 @@ Button {
 
 #show-nav {
     position: fixed; /* Change to fixed position */
-    top: var(--navbar-top);
-    left: var(--navbar-left);
+    margin-top: calc(var(--navbar-height) / 8);
+    margin-left: 3%;
     z-index: var(--button-z-index);
     cursor: var(--button-cursor);
-    margin: var(--button-margin);
     transition: transform var(--navbar-anim-length), opacity var(--navbar-anim-length);
 }
 

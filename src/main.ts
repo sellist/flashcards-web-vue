@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import './style.css'
 import App from './App.vue'
 import {createRouter, createWebHashHistory} from "vue-router";
@@ -9,6 +9,8 @@ import CardDisplayView from "./view/CardDisplayView.vue";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import DeckChoiceView from "./view/DeckChoiceView.vue";
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import { FaHome } from "oh-vue-icons/icons";
 
 const routes = [
     { path: '/', component: HomeView },
@@ -23,7 +25,10 @@ const router = createRouter({
     routes,
 })
 
+addIcons(FaHome);
+
 const app = createApp(App);
+app.component("v-icon", OhVueIcon);
 app.use(router);
 app.use(PrimeVue, {
     theme: {

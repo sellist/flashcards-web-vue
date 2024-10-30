@@ -9,12 +9,12 @@
     --accent: #f56565;
     --accent-hover: #e53e3e;
     --accent-active: #c53030;
-    --navbar-height: 3.5rem;
-    --text-size: 16px;
+    --navbar-height: 4.5rem;
+    --text-size: 1rem;
     --minimum-width: 320px;
     font-family: system-ui, sans-serif;
     font-weight: normal;
-    transition: all 0.5s;
+
 }
 
 body {
