@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
+import getCardStore from "../service/StoreService.ts";
 
 function toggleNavbar() {
-    if (isNavbarVisible.value) {
-    }
     isNavbarVisible.value = !isNavbarVisible.value;
 }
 
+const cardStore = getCardStore();
+
 const isNavbarVisible = ref(true);
+const chosenDeck = ref(false);
+
+if (cardStore.getSelectedDeck() !== undefined) {
+    chosenDeck.value = true;
+}
+
+onMounted(() => {
+    if (cardStore.getSelectedDeck().name == "No Deck") {
+        chosenDeck.value = false;
+    }
+});
 
 </script>
 
@@ -16,10 +28,10 @@ const isNavbarVisible = ref(true);
         <transition name="navbar-slide">
         <nav v-if="isNavbarVisible" class="navbar">
             <ul id="nav-buttons">
-                <Button class="pi pi-home nav-button" @click="$router.push('/')" label="Home"  raised rounded><v-icon name="fa-home" /></Button>
+                <Button class="pi pi-home nav-button" @click="$router.push('/')" label="Home" raised rounded ><v-icon name="fa-home" /></Button>
                 <Button class="nav-button" @click="$router.push('/about')" label="About" rounded />
                 <Button class="nav-button" @click="$router.push('/create')" label="Create"  rounded />
-                <Button class="nav-button" @click="$router.push('/play')" label="Play Deck" rounded />
+                <Button v-if="chosenDeck" class="nav-button" @click="$router.push('/play')" label="Play Deck" rounded />
                 <Button class="nav-button" @click="$router.push('/choose')" label="Choose Deck" rounded />
                 <Button class="nav-button" @click="toggleNavbar" label="Toggle Navbar" rounded />
             </ul>
